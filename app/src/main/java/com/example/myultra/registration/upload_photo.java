@@ -20,8 +20,6 @@ import android.widget.ImageView;
 
 public class upload_photo extends ActionBarActivity {
 
-
-
     ImageView iv;
     Button b;
 
@@ -29,8 +27,9 @@ public class upload_photo extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_photo);
-
         iv = (ImageView) findViewById(R.id.imageView);
+        
+        //ON CLICK OF BUTTON
         b = (Button) findViewById(R.id.button4);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,9 +44,12 @@ public class upload_photo extends ActionBarActivity {
 
         final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel" };
 
+// HERE IT WILL ASK IF USER WANTS TO TAKE THE PIC BY CAMERA OR BY GALLERY
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Add Photo!");
         builder.setItems(options, new DialogInterface.OnClickListener() {
+            
+            // IF CAMERA IS CHOOSEN
             @Override
             public void onClick(DialogInterface dialog, int item) {
                 if (options[item].equals("Take Photo")) {
@@ -55,10 +57,12 @@ public class upload_photo extends ActionBarActivity {
                     startActivityForResult(intent, 1);
                 }
 
+            // IF GALLERY IS CHOOSEN
                 else if (options[item].equals("Choose from Gallery")) {
                     Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(intent, 2);
 
+            // IF CANCEL IS TAPPED
                 }
 
                 else if (options[item].equals("Cancel")) {
@@ -74,11 +78,15 @@ public class upload_photo extends ActionBarActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        
+        //IF CAMERA IS CHOOSEN , THEN IT TAKES THE PICTURE
         if (resultCode == RESULT_OK) {
             if (requestCode == 1) {
                 Bitmap bp = (Bitmap) data.getExtras().get("data");
                 iv.setImageBitmap(bp);
             }
+            
+            // IF GALLERY IS CHOOSEN, THEN THIS CODE WILL GET THE GALLERY PIC 
             else if (requestCode == 2) {
 
                 Uri selectedImage = data.getData();
