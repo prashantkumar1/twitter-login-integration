@@ -30,7 +30,7 @@ import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 public class MainActivity extends ActionBarActivity {
 
-    // TWITTER LOGIN KEYS
+    // TWITTER LOGIN KEYS, HERE THE KEYS ARE OF MY ACCOUNT , REPLACE IT WITH YOURS 
     private static final String TWITTER_KEY = "Aym8wPz3KUzyF3xv6o2O37ZWc";
     private static final String TWITTER_SECRET = "OgQzuorwIFphoHwMMHfrrWakvpwzdoUQvjXT8IzkM0aPH9rpDm";
     private TwitterLoginButton loginButton;
@@ -39,7 +39,8 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        
+      // TWITTER INSTANCES , AS DESCRIBED IN FABRIC   
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
         setContentView(R.layout.activity_main);
@@ -65,9 +66,11 @@ public class MainActivity extends ActionBarActivity {
         pref = getSharedPreferences("Registration", 0);
         editor = pref.edit();
 
-
+// ON THE CLICK OF TWITTER BUTTON
         loginButton = (TwitterLoginButton) findViewById(R.id.twitter_login_button);
         loginButton.setCallback(new Callback<TwitterSession>() {
+            
+            //IF RESULT IS SUCCESSFUL
             @Override
             public void success(Result<TwitterSession> result) {
                 // Do something with result, which provides a TwitterSession for making API calls
@@ -77,6 +80,7 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(i);
             }
 
+            //IF RESULT IS UNSUCCESSFUL
             @Override
             public void failure(TwitterException exception) {
                 // Do something on failure
@@ -88,7 +92,7 @@ public class MainActivity extends ActionBarActivity {
 
 
 
-    //CHECKBOX FUNTION
+    //CHECKBOX FUNTION FOR PASSWORD TO SHOW 
 
     check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
         @Override
@@ -106,7 +110,7 @@ public class MainActivity extends ActionBarActivity {
 
 
 
-    //BUTTONS
+    //ON CLICK OF BUTTON , ALL THESE THINGS WILL BE CHECKED , IF THEY ARE VALID OR NOT 
 
     button.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -158,7 +162,7 @@ public class MainActivity extends ActionBarActivity {
 }
 
 
-    //FUNCTIONS
+    //FUNCTION TO CHECK IF EMAIL ID IS VALID OR NOT 
 
     private boolean isValidEmail(String email)
     {
@@ -168,6 +172,7 @@ public class MainActivity extends ActionBarActivity {
         return matcher.matches();
     }
 
+ //FUNCTION TO CHECK IF PASSWORD IS VALID OR NOT 
     private boolean isValidPassword(String password)
     {
         if(password!=null && password.length()>6)
@@ -177,7 +182,8 @@ public class MainActivity extends ActionBarActivity {
         else
             return false;
     }
-
+    
+     //FUNCTION TO CHECK IF PHONE NUMBER IS VALID OR NOT 
     private boolean isValidPhone(String phone)
     {
         if (phone.length()==10)
